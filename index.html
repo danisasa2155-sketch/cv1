@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M. Febri R.D — Programmer AI &amp; Teknik Komputer Jaringan</title>
+  <meta name="description" content="Portofolio dan Curriculum Vitae resmi M. Febri R.D — Keahlian Teknik Komputer dan Jaringan dengan tujuan karir sebagai Programmer AI, berlatar keindahan Kawah Ijen Banyuwangi." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Definisi Awal Fallback Foto Profil di <head> agar Tersedia Sebelum Tag <img> Diparsing -->
+  <script>
+    window.handleProfileImgError = function (imgEl, size, label) {
+      const stage = imgEl.getAttribute('data-fallback-stage') || '0';
+      if (stage === '0') {
+        imgEl.setAttribute('data-fallback-stage', '1');
+        imgEl.src = 'foto-profil.jpg';
+      } else if (stage === '1') {
+        imgEl.setAttribute('data-fallback-stage', '2');
+        imgEl.onerror = null;
+        imgEl.src = `https://placehold.co/${size}/07101c/2dd4bf?text=${label}`;
+      }
+    };
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Konfigurasi Tailwind untuk Font dan Animasi Kustom -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0' },
+            },
+            spinSlow: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            }
+          },
+          animation: {
+            'float': 'float 5s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 2s infinite',
+            'blink': 'blink 0.9s infinite',
+            'spin-slow': 'spinSlow 24s linear infinite',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Gaya Glassmorphism, Animasi Equalizer Musik & Pengaturan Cetak PDF -->
+  <style>
+    .ijen-glass {
+      background: rgba(7, 16, 28, 0.66);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 40px -15px rgba(2, 8, 20, 0.65);
+    }
+
+    .ijen-glass-strong {
+      background: rgba(6, 14, 24, 0.80);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(45, 212, 191, 0.24);
+      box-shadow: 0 22px 48px -12px rgba(2, 8, 20, 0.75);
+    }
+
+    @keyframes eqPulse1 {
+      0%, 100% { height: 25%; }
+      50% { height: 95%; }
+    }
+    @keyframes eqPulse2 {
+      0%, 100% { height: 85%; }
+      50% { height: 30%; }
+    }
+    @keyframes eqPulse3 {
+      0%, 100% { height: 40%; }
+      50% { height: 100%; }
+    }
+    @keyframes eqPulse4 {
+      0%, 100% { height: 70%; }
+      50% { height: 20%; }
+    }
+    .eq-playing .eq-bar-1 { animation: eqPulse1 0.85s ease-in-out infinite; }
+    .eq-playing .eq-bar-2 { animation: eqPulse2 0.65s ease-in-out infinite; }
+    .eq-playing .eq-bar-3 { animation: eqPulse3 0.95s ease-in-out infinite; }
+    .eq-playing .eq-bar-4 { animation: eqPulse4 0.75s ease-in-out infinite; }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .ijen-glass, .ijen-glass-strong {
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        color: #0f172a !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-teal-400/30 selection:text-teal-200 overflow-x-hidden">
+
+  <!-- =====================================================================
+       LATAR BELAKANG PEMANDANGAN INDAH KAWAH IJEN (FULL-SCREEN FIXED)
+       ===================================================================== -->
+  <div id="kawah-ijen-backdrop" class="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden no-print" aria-hidden="true">
+    <!-- Opsional Foto Lokal kawah-ijen.jpg jika tersedia di root repository GitHub -->
+    <img
+      id="ijen-local-photo"
+      src="kawah-ijen.jpg"
+      alt="Pemandangan Kawah Ijen Banyuwangi"
+      onload="this.classList.remove('hidden'); this.classList.add('opacity-45');"
+      onerror="this.remove();"
+      class="hidden absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+    />
+
+    <!-- Canvas Panorama Interaktif Kawah Ijen (Danau Turquoise, Tebing Kaldera, Sunrise & Blue Fire) -->
+    <canvas id="kawah-ijen-canvas" class="absolute inset-0 w-full h-full block"></canvas>
+
+    <!-- Vignette Halus agar Konten CV Tetap Nyaman Dibaca di Atas Pemandangan -->
+    <div id="ijen-readability-vignette" class="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-950/20 to-slate-950/65 transition-opacity duration-700"></div>
+  </div>
+
+  <!-- Input File Tersembunyi untuk Ganti/Preview Foto Profil & Pilih Audio Lokal -->
+  <input type="file" id="profile-photo-input" accept="image/*" class="hidden" />
+  <input type="file" id="custom-audio-input" accept="audio/*" class="hidden" />
+  <audio id="local-audio-player" loop class="hidden"></audio>
+
+  <!-- Kontainer Notifikasi Toast Interaktif -->
+  <div id="toast-container" class="fixed bottom-24 right-4 sm:right-6 z-50 flex flex-col gap-2.5 pointer-events-none max-w-xs sm:max-w-sm no-print" aria-live="polite"></div>
+
+  <!-- =====================================================================
+       HEADER & NAVIGASI STICKY GLASSMORPHISM
+       ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-slate-950/70 backdrop-blur-xl border-b border-white/10 transition-colors duration-300 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+
+        <!-- Logo / Identitas Brand dengan Avatar Foto Profil -->
+        <a href="#beranda" class="flex items-center gap-3 group focus:outline-none shrink-0">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full p-0.5 bg-gradient-to-br from-teal-300 via-cyan-400 to-amber-300 shadow-lg shadow-teal-500/25 group-hover:scale-105 transition-transform shrink-0">
+            <img
+              id="nav-profile-img"
+              src="cristiano-ronaldo-pictures-h4nmsss5mkctpwjw.jpg"
+              alt="Avatar M. Febri R.D"
+              style="object-fit: cover; object-position: top center;"
+              onerror="handleProfileImgError(this, '100x100', 'MF')"
+              class="w-full h-full rounded-full object-cover object-top bg-slate-900"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-teal-300 transition-colors">
+              M. Febri R.D
+            </span>
+            <span class="text-[11px] font-mono text-teal-300 tracking-wider uppercase">
+              Programmer AI
+            </span>
+          </div>
+        </a>
+
+        <!-- Menu Navigasi Desktop -->
+        <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
+          <a href="#profil" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-teal-300 hover:bg-white/10 transition-all">
+            Profil
+          </a>
+          <a href="#keahlian" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-teal-300 hover:bg-white/10 transition-all">
+            Keahlian
+          </a>
+          <a href="#pendidikan" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-teal-300 hover:bg-white/10 transition-all">
+            Pendidikan
+          </a>
+          <a href="#proyek" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-teal-300 hover:bg-white/10 transition-all">
+            Proyek
+          </a>
+          <a href="#kontak" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-teal-300 hover:bg-white/10 transition-all">
+            Kontak
+          </a>
+        </nav>
+
+        <!-- Tombol Aksi Kanan: Toggle Suasana Kawah Ijen, Cetak PDF, Musik & Hamburger -->
+        <div class="flex items-center gap-2">
+          <!-- Tombol Ganti Suasana Kawah Ijen (Sunrise vs Blue Fire Malam) -->
+          <button id="ijen-mode-toggle" type="button" aria-label="Ubah Suasana Kawah Ijen" class="inline-flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-teal-300/30 text-teal-200 text-xs font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-teal-400/40">
+            <!-- Ikon Sunrise -->
+            <svg id="icon-ijen-sunrise" class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <!-- Ikon Blue Fire -->
+            <svg id="icon-ijen-bluefire" class="w-4 h-4 text-sky-400 hidden shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+            </svg>
+            <span id="ijen-mode-label" class="hidden sm:inline">Sunrise Kawah Ijen</span>
+            <span id="ijen-mode-label-mobile" class="sm:hidden">Sunrise</span>
+          </button>
+
+          <!-- Tombol Cetak / PDF di Navbar -->
+          <button id="nav-print-btn" type="button" aria-label="Cetak atau Simpan PDF" class="hidden md:inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-slate-100 text-xs font-semibold transition-all">
+            <svg class="w-4 h-4 text-teal-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            <span>Cetak / PDF</span>
+          </button>
+
+          <!-- Tombol Musik Cepat di Navbar -->
+          <button id="nav-music-btn" type="button" aria-label="Putar atau Jeda Musik Latar" class="inline-flex items-center gap-2 px-3 py-2.5 rounded-xl bg-teal-500/20 hover:bg-teal-500/30 border border-teal-400/35 text-teal-200 text-xs font-semibold transition-all focus:outline-none">
+            <span id="nav-eq" class="flex items-end gap-0.5 h-3.5 w-3.5" aria-hidden="true">
+              <span class="eq-bar-1 w-0.5 h-1.5 bg-teal-300 rounded-full"></span>
+              <span class="eq-bar-2 w-0.5 h-3 bg-cyan-300 rounded-full"></span>
+              <span class="eq-bar-3 w-0.5 h-2 bg-amber-300 rounded-full"></span>
+              <span class="eq-bar-4 w-0.5 h-2.5 bg-teal-300 rounded-full"></span>
+            </span>
+            <span id="nav-music-label" class="hidden sm:inline">Musik</span>
+          </button>
+
+          <!-- Tombol Hamburger Mobile -->
+          <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka Menu Navigasi" class="lg:hidden p-3 rounded-xl bg-white/10 border border-white/15 text-slate-100 hover:border-teal-400/50 transition-all focus:outline-none">
+            <svg id="hamburger-open" class="w-5 h-5 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="hamburger-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel Menu Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-white/10 bg-slate-950/90 backdrop-blur-xl">
+      <nav class="px-4 py-4 flex flex-col gap-1.5" aria-label="Navigasi Mobile">
+        <a href="#profil" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-100 hover:bg-teal-500/15 hover:text-teal-300 transition-colors">
+          Profil &amp; Tujuan Karir
+        </a>
+        <a href="#keahlian" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-100 hover:bg-teal-500/15 hover:text-teal-300 transition-colors">
+          Keahlian
+        </a>
+        <a href="#pendidikan" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-100 hover:bg-teal-500/15 hover:text-teal-300 transition-colors">
+          Riwayat Pendidikan
+        </a>
+        <a href="#proyek" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-100 hover:bg-teal-500/15 hover:text-teal-300 transition-colors">
+          Konsep Proyek AI &amp; Jaringan
+        </a>
+        <a href="#kontak" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-100 hover:bg-teal-500/15 hover:text-teal-300 transition-colors">
+          Kontak
+        </a>
+        <button type="button" id="mobile-print-btn" class="mobile-nav-link text-left px-4 py-3 rounded-xl text-sm font-semibold text-teal-300 hover:bg-teal-500/15 transition-colors">
+          Cetak / Simpan PDF CV
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       KONTEN UTAMA
+       ===================================================================== -->
+  <main class="relative z-10">
+
+    <!-- ===================================================================
+         1. HERO SECTION INTERAKTIF (MEMPERLIHATKAN PANORAMA KAWAH IJEN)
+         =================================================================== -->
+    <section id="beranda" class="pt-10 pb-20 sm:pt-16 sm:pb-28 lg:pt-20 lg:pb-32 px-4 sm:px-6 lg:px-8 print:pt-4 print:pb-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Kolom Kiri: Identitas, Efek Mengetik & Tombol Aksi -->
+          <div class="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
+            <!-- Badge Lokasi Kawah Ijen Banyuwangi & Tombol Musik -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-6">
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full ijen-glass text-teal-200 text-xs sm:text-sm font-medium">
+                <span class="relative flex h-2.5 w-2.5 no-print">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-400"></span>
+                </span>
+                <span>Sempu, Banyuwangi • Pesona Kawah Ijen</span>
+              </div>
+
+              <button id="hero-music-trigger" type="button" class="no-print inline-flex items-center gap-2 px-4 py-2 rounded-full ijen-glass hover:border-amber-300/45 text-amber-200 text-xs sm:text-sm font-medium transition-all">
+                <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                </svg>
+                <span id="hero-music-text">Putar Musik Ijen Sunrise</span>
+              </button>
+            </div>
+
+            <!-- Nama Lengkap -->
+            <p class="text-sm sm:text-base font-mono text-teal-300 mb-2 tracking-wide drop-shadow">
+              Halo, perkenalkan saya
+            </p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.65)] print:text-3xl print:text-slate-900">
+              M. Febri <span class="bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-300 bg-clip-text text-transparent print:text-slate-900">R.D</span>
+            </h1>
+
+            <!-- Animasi Mengetik (Typing Effect) -->
+            <div class="min-h-[3.25rem] sm:min-h-[2.5rem] flex items-center justify-center lg:justify-start mb-6">
+              <p class="text-lg sm:text-2xl font-semibold text-white drop-shadow print:text-base print:text-slate-800">
+                <span class="text-slate-300 font-normal print:text-slate-600">Fokus &amp; Visi: </span>
+                <span id="typing-text" class="text-teal-300 font-mono print:text-teal-700">Programmer AI</span><span class="inline-block w-0.5 h-6 ml-1 bg-amber-300 align-middle animate-blink no-print" aria-hidden="true"></span>
+              </p>
+            </div>
+
+            <!-- Ringkasan Singkat dalam Kartu Glassmorphism Ringan -->
+            <div class="p-5 sm:p-6 rounded-3xl ijen-glass max-w-2xl mx-auto lg:mx-0 mb-8 text-left">
+              <p class="text-sm sm:text-base text-slate-100 leading-relaxed print:text-slate-700">
+                Lulusan bidang <strong class="font-semibold text-teal-300 print:text-slate-900">Teknik Komputer dan Jaringan</strong> dari Banyuwangi dengan tekad kuat meniti karir sebagai <strong class="font-semibold text-amber-300 print:text-teal-700">Programmer AI</strong> — menggabungkan keandalan infrastruktur jaringan dengan kecerdasan buatan modern.
+              </p>
+
+              <!-- Info Cepat Domisili & Bidang -->
+              <div class="flex flex-wrap items-center gap-2.5 mt-4 pt-4 border-t border-white/10 text-xs sm:text-sm text-slate-200">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10">
+                  <svg class="w-4 h-4 text-teal-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Dusun Karanganyar, Desa Karangsari, Kec. Sempu, Banyuwangi</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Tombol Aksi Utama -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 no-print">
+              <a href="#kontak" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-teal-400 via-cyan-400 to-amber-300 hover:from-teal-300 hover:to-amber-200 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-teal-500/30 transform hover:-translate-y-0.5 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Hubungi Saya</span>
+              </a>
+
+              <a href="#keahlian" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl ijen-glass hover:border-teal-300/50 text-white font-semibold text-sm sm:text-base transform hover:-translate-y-0.5 transition-all">
+                <svg class="w-5 h-5 text-teal-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <span>Lihat Keahlian</span>
+              </a>
+
+              <button id="print-cv-btn" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl ijen-glass hover:border-amber-300/50 text-amber-200 font-semibold text-sm sm:text-base transform hover:-translate-y-0.5 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                <span>Cetak / PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Foto Profil Utama dengan Bingkai Glowing Ring & Tombol Ganti Foto -->
+          <div class="lg:col-span-5 flex flex-col items-center order-1 lg:order-2">
+            <div class="relative group">
+              <!-- Cahaya Latar Belakang Foto (Nuansa Turquoise & Golden Sunrise Kawah Ijen) -->
+              <div class="absolute -inset-4 rounded-full bg-gradient-to-tr from-teal-400 via-cyan-400 to-amber-300 opacity-50 blur-2xl group-hover:opacity-80 transition-opacity duration-500 no-print"></div>
+
+              <!-- Cincin Dekoratif Berputar Halus -->
+              <div class="absolute -inset-3 rounded-full border-2 border-dashed border-teal-300/60 animate-spin-slow pointer-events-none no-print"></div>
+
+              <!-- Bingkai Foto Profil Utama -->
+              <div class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full p-2 bg-gradient-to-br from-teal-300 via-cyan-400 to-amber-300 shadow-2xl shadow-teal-950/60 print:w-36 print:h-36 print:p-1 print:shadow-none">
+                <div class="w-full h-full rounded-full overflow-hidden bg-slate-900 relative ring-4 ring-slate-950/50">
+                  <img
+                    id="hero-profile-img"
+                    src="cristiano-ronaldo-pictures-h4nmsss5mkctpwjw.jpg"
+                    alt="Foto Profil M. Febri R.D"
+                    style="object-fit: cover; object-position: top center;"
+                    onerror="handleProfileImgError(this, '500x500', 'M.+Febri+R.D')"
+                    class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <!-- Tombol Ganti Foto Profil di Pojok Bingkai -->
+                <button type="button" onclick="document.getElementById('profile-photo-input').click()" title="Muat atau Ganti Foto Profil" class="no-print absolute bottom-2 right-2 sm:bottom-3 sm:right-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-slate-950/90 hover:bg-teal-400 text-white hover:text-slate-950 border border-teal-300/50 shadow-lg text-xs font-semibold backdrop-blur-md transition-all">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Ganti Foto</span>
+                </button>
+              </div>
+
+              <!-- Lencana Melayang 1: Tujuan Karir -->
+              <div class="hidden sm:flex items-center gap-2.5 px-4 py-2.5 rounded-2xl ijen-glass-strong absolute -left-7 top-6 animate-float no-print">
+                <div class="w-8 h-8 rounded-xl bg-teal-400/20 text-teal-300 flex items-center justify-center">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-slate-300 font-mono">Tujuan Karir</p>
+                  <p class="text-xs font-bold text-white">Programmer AI</p>
+                </div>
+              </div>
+
+              <!-- Lencana Melayang 2: Keahlian Utama -->
+              <div class="hidden sm:flex items-center gap-2.5 px-4 py-2.5 rounded-2xl ijen-glass-strong absolute -right-5 bottom-12 animate-float-delayed no-print">
+                <div class="w-8 h-8 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-slate-300 font-mono">Keahlian Utama</p>
+                  <p class="text-xs font-bold text-white">Teknik Komputer &amp; Jaringan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. BAGIAN PROFIL & TUJUAN KARIR
+         =================================================================== -->
+    <section id="profil" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 print:py-6">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header Bagian -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 text-center max-w-2xl mx-auto mb-12 print:opacity-100 print:translate-y-0 print:mb-6">
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ijen-glass text-teal-300 mb-3">
+            Profil &amp; Visi Karir
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow print:text-slate-900">
+            Tentang Saya &amp; Tujuan Karir
+          </h2>
+        </div>
+
+        <!-- Grid Kartu Profil & Visi AI -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <!-- Kartu 1: Ringkasan Profil & Biodata Lengkap -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 lg:col-span-7 p-6 sm:p-8 rounded-3xl ijen-glass-strong print:opacity-100 print:translate-y-0 print:p-5">
+            <div class="flex items-center gap-4 mb-5">
+              <div class="w-16 h-16 rounded-2xl p-0.5 bg-gradient-to-br from-teal-300 via-cyan-400 to-amber-300 shrink-0 shadow-md">
+                <img
+                  id="about-profile-img"
+                  src="cristiano-ronaldo-pictures-h4nmsss5mkctpwjw.jpg"
+                  alt="M. Febri R.D"
+                  style="object-fit: cover; object-position: top center;"
+                  onerror="handleProfileImgError(this, '160x160', 'MF')"
+                  class="w-full h-full rounded-[14px] object-cover object-top bg-slate-900"
+                />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white print:text-slate-900">Ringkasan Profesional</h3>
+                <p class="text-xs font-mono text-teal-300 print:text-teal-700">M. Febri R.D • TKJ &amp; AI Enthusiast</p>
+              </div>
+            </div>
+
+            <p class="text-slate-200 leading-relaxed mb-4 text-sm sm:text-base print:text-slate-700">
+              Saya <strong class="text-white print:text-slate-900">M. Febri R.D</strong>, berasal dari <strong class="text-teal-300 print:text-teal-700">Sempu, Banyuwangi</strong>, dengan ketertarikan mendalam pada arsitektur jaringan komputer dan pengembangan kecerdasan buatan. Berbekal pendidikan kejuruan <strong class="text-teal-300 print:text-teal-700">Teknik Komputer dan Jaringan</strong> di SMKN Ihya Ulumudin, saya terbiasa menangani instalasi jaringan, konfigurasi router, serta pemecahan masalah sistem secara terstruktur.
+            </p>
+            <p class="text-slate-200 leading-relaxed mb-6 text-sm sm:text-base print:text-slate-700">
+              Kini saya mengarahkan seluruh semangat belajar dan eksplorasi teknologi untuk meniti karir sebagai <strong class="text-amber-300 print:text-teal-700">Programmer AI</strong> yang mampu merancang sistem cerdas, otomatis, dan tangguh.
+            </p>
+
+            <!-- Daftar Biodata Terstruktur -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-white/10 text-xs sm:text-sm">
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">Nama Lengkap</span>
+                <span class="font-semibold text-white print:text-slate-900">M. Febri R.D</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">Tujuan Karir</span>
+                <span class="font-semibold text-amber-300 print:text-teal-700">Programmer AI</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">Keahlian Utama</span>
+                <span class="font-semibold text-white print:text-slate-900">Teknik Komputer &amp; Jaringan</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">No. Telepon / WhatsApp</span>
+                <span class="font-semibold font-mono text-teal-300 print:text-slate-900">085606133253</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">Email</span>
+                <span class="font-semibold font-mono text-white break-all print:text-slate-900">occolues9@gmail.com</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span class="block text-slate-400 text-xs mb-0.5">Alamat Domisili</span>
+                <span class="font-semibold text-white print:text-slate-900">Dusun Karanganyar, Desa Karangsari, Kec. Sempu, Banyuwangi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kartu 2: Fokus & Tujuan Karir (Programmer AI) -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-100 lg:col-span-5 p-6 sm:p-8 rounded-3xl ijen-glass-strong relative overflow-hidden flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-5">
+            <div class="absolute -right-10 -top-10 w-44 h-44 rounded-full bg-teal-400/20 blur-2xl pointer-events-none no-print"></div>
+
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-400/15 border border-amber-300/30 text-amber-200 text-xs font-mono mb-5 print:text-teal-700 print:border-teal-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <span>VISI KARIR UTAMA</span>
+              </div>
+
+              <h3 class="text-2xl font-bold mb-4 text-white print:text-slate-900">
+                Menjadi <span class="text-teal-300 print:text-teal-700">Programmer AI</span> yang Inovatif &amp; Solutif
+              </h3>
+
+              <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-6 print:text-slate-700">
+                Sebagaimana Kawah Ijen memancarkan energi alam yang luar biasa, saya memadukan ketangguhan <strong class="text-teal-300 print:text-teal-700">Teknik Komputer dan Jaringan</strong> dengan kecerdasan <strong class="text-amber-300 print:text-slate-900">Artificial Intelligence</strong> untuk menciptakan solusi digital masa depan.
+              </p>
+            </div>
+
+            <!-- Pilar Keunggulan Gabungan TKJ + AI -->
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                <span class="w-6 h-6 rounded-lg bg-teal-400/20 text-teal-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">01</span>
+                <div>
+                  <h4 class="text-sm font-semibold text-white print:text-slate-900">Infrastruktur Jaringan Andal</h4>
+                  <p class="text-xs text-slate-300 print:text-slate-600">Menguasai konektivitas, routing, dan server sebagai fondasi utama layanan AI.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                <span class="w-6 h-6 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">02</span>
+                <div>
+                  <h4 class="text-sm font-semibold text-white print:text-slate-900">Pengembangan Logika &amp; Model AI</h4>
+                  <p class="text-xs text-slate-300 print:text-slate-600">Mendalami Python, algoritma cerdas, dan otomatisasi berbasis kecerdasan buatan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. BAGIAN KEAHLIAN INTERAKTIF (FILTERABLE + ANIMATED BARS)
+         =================================================================== -->
+    <section id="keahlian" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 print:py-6">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header Bagian -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 text-center max-w-2xl mx-auto mb-8 print:opacity-100 print:translate-y-0 print:mb-4">
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ijen-glass text-amber-300 mb-3">
+            Kompetensi &amp; Pengembangan
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow mb-3 print:text-slate-900">
+            Keahlian Teknis &amp; Pemrograman AI
+          </h2>
+          <p class="text-sm sm:text-base text-slate-200 drop-shadow print:text-slate-600">
+            Kombinasi keahlian inti di bidang <strong class="text-teal-300">Teknik Komputer dan Jaringan</strong> dengan jalur pengembangan <strong class="text-amber-300">Pemrograman &amp; AI</strong>.
+          </p>
+        </div>
+
+        <!-- Filter Tab Kategori Keahlian -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 no-print" role="tablist" aria-label="Filter Kategori Keahlian">
+          <button type="button" data-filter="all" class="skill-filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-teal-400 to-cyan-300 text-slate-950 shadow-lg shadow-teal-500/25 transition-all">
+            Semua
+          </button>
+          <button type="button" data-filter="network" class="skill-filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ijen-glass text-slate-100 hover:border-teal-300/50 transition-all">
+            Teknik Komputer &amp; Jaringan
+          </button>
+          <button type="button" data-filter="ai" class="skill-filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ijen-glass text-slate-100 hover:border-amber-300/50 transition-all">
+            Pemrograman &amp; AI
+          </button>
+        </div>
+
+        <!-- Grid Kartu Keahlian -->
+        <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+
+          <!-- Skill 1 -->
+          <div data-category="network" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-teal-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-teal-400/20 text-teal-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-teal-400/15 text-teal-300 border border-teal-400/25">TKJ Utama</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Instalasi &amp; Konfigurasi Jaringan LAN/WLAN</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Perancangan topologi jaringan lokal kabel maupun nirkabel, crimping UTP/Fiber, pengalamatan IP, subnetting, serta manajemen konektivitas stabil.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Tingkat Penguasaan</span>
+                <span class="font-bold text-teal-300">92%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-300 transition-all duration-1000 ease-out" data-width="92%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 2 -->
+          <div data-category="network" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-cyan-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-cyan-400/20 text-cyan-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-cyan-400/15 text-cyan-300 border border-cyan-400/25">Routing &amp; Mikrotik</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Administrasi Router &amp; Mikrotik</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Konfigurasi MikroTik RouterOS, manajemen bandwidth (Queue), DHCP Server, NAT, Hotspot, VLAN, serta routing statis maupun dinamis.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Tingkat Penguasaan</span>
+                <span class="font-bold text-cyan-300">90%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-cyan-400 to-teal-300 transition-all duration-1000 ease-out" data-width="90%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 3 -->
+          <div data-category="network" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-emerald-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-emerald-400/15 text-emerald-300 border border-emerald-400/25">Hardware &amp; OS</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Troubleshooting Hardware &amp; Software</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Perakitan komputer PC/server, diagnosa kerusakan komponen, instalasi sistem operasi Linux &amp; Windows, serta keamanan jaringan dasar.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Tingkat Penguasaan</span>
+                <span class="font-bold text-emerald-300">93%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-300 transition-all duration-1000 ease-out" data-width="93%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 4 -->
+          <div data-category="ai" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-amber-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-amber-400/20 text-amber-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-amber-400/15 text-amber-200 border border-amber-400/25">Fokus Karir AI</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Logika Pemrograman, Algoritma &amp; Python</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Perancangan alur logika algoritma, struktur data dasar, penulisan skrip otomatisasi tugas sistem, dan pemrograman Python untuk pengembangan AI.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Progres Pengembangan</span>
+                <span class="font-bold text-amber-300">84%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-amber-300 to-teal-300 transition-all duration-1000 ease-out" data-width="84%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 5 -->
+          <div data-category="ai" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-sky-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-sky-400/20 text-sky-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-sky-400/15 text-sky-200 border border-sky-400/25">Fokus Karir AI</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Konsep Kecerdasan Buatan (AI)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Pemahaman dasar Machine Learning, neural network, pemanfaatan model AI &amp; prompt engineering untuk membangun aplikasi asisten cerdas.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Progres Pengembangan</span>
+                <span class="font-bold text-sky-300">82%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-sky-400 to-teal-300 transition-all duration-1000 ease-out" data-width="82%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 6 -->
+          <div data-category="ai network" class="skill-card reveal-on-scroll opacity-0 translate-y-6 transition-all duration-500 p-6 rounded-3xl ijen-glass hover:border-teal-300/50 print:opacity-100 print:translate-y-0 print:p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-11 h-11 rounded-2xl bg-teal-400/20 text-teal-300 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-teal-400/15 text-teal-200 border border-teal-400/25">Web &amp; GitHub</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">Pengembangan Web HTML/CSS/JS</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed print:text-slate-600">
+              Pembuatan antarmuka web modern responsif dengan HTML5, Tailwind CSS, JavaScript interaktif, dan pengelolaan repositori GitHub Pages.
+            </p>
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Tingkat Penguasaan</span>
+                <span class="font-bold text-teal-300">86%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="skill-progress h-full rounded-full bg-gradient-to-r from-teal-300 to-amber-300 transition-all duration-1000 ease-out" data-width="86%" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. BAGIAN RIWAYAT PENDIDIKAN (TIMELINE VERTIKAL INTERAKTIF)
+         =================================================================== -->
+    <section id="pendidikan" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 print:py-6">
+      <div class="max-w-4xl mx-auto">
+        <!-- Header Bagian -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 text-center max-w-2xl mx-auto mb-12 print:opacity-100 print:translate-y-0 print:mb-6">
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ijen-glass text-teal-300 mb-3">
+            Latar Belakang Akademik
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow print:text-slate-900">
+            Riwayat Pendidikan
+          </h2>
+        </div>
+
+        <!-- Timeline Vertikal -->
+        <div class="relative pl-8 sm:pl-10 border-l-2 border-teal-400/40 space-y-8 print:space-y-4">
+
+          <!-- Item 1: SMKN Ihya Ulumudin -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 relative group print:opacity-100 print:translate-y-0">
+            <span class="absolute -left-[41px] sm:-left-[49px] top-6 w-5 h-5 rounded-full bg-teal-400 border-4 border-slate-950 shadow-md shadow-teal-400/60 group-hover:scale-125 transition-transform"></span>
+
+            <div class="p-6 sm:p-7 rounded-3xl ijen-glass-strong group-hover:border-teal-300/50 group-hover:-translate-y-1 transition-all duration-300 print:p-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-teal-400/20 text-teal-200 border border-teal-300/30">
+                  Jenjang Menengah Kejuruan (SMK)
+                </span>
+                <span class="text-xs font-mono text-amber-300 font-semibold">
+                  Jurusan: Teknik Komputer dan Jaringan
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors print:text-slate-900">
+                SMKN Ihya Ulumudin
+              </h3>
+              <p class="text-sm sm:text-base text-slate-200 leading-relaxed print:text-slate-700">
+                Menempuh pendidikan kejuruan jurusan <strong class="text-teal-300 print:text-slate-900">Teknik Komputer dan Jaringan</strong>, mempelajari perakitan komputer, administrasi router &amp; MikroTik, manajemen jaringan LAN/WLAN, serta logika pemrograman sebagai fondasi menuju karir Programmer AI.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2: SMPN 1 Sempu -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-100 relative group print:opacity-100 print:translate-y-0">
+            <span class="absolute -left-[41px] sm:-left-[49px] top-6 w-5 h-5 rounded-full bg-cyan-400 border-4 border-slate-950 shadow-md shadow-cyan-400/50 group-hover:scale-125 transition-transform"></span>
+
+            <div class="p-6 sm:p-7 rounded-3xl ijen-glass-strong group-hover:border-cyan-300/50 group-hover:-translate-y-1 transition-all duration-300 print:p-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-cyan-400/20 text-cyan-200 border border-cyan-300/30">
+                  Jenjang Menengah Pertama (SMP)
+                </span>
+                <span class="text-xs font-mono text-slate-300">
+                  Kec. Sempu, Banyuwangi
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors print:text-slate-900">
+                SMPN 1 Sempu
+              </h3>
+              <p class="text-sm sm:text-base text-slate-200 leading-relaxed print:text-slate-700">
+                Menyelesaikan pendidikan menengah pertama dengan penguatan kemampuan logika matematika, sains, serta pengenalan teknologi informasi dan komunikasi dasar.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3: MI Miftahul Ulum -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-200 relative group print:opacity-100 print:translate-y-0">
+            <span class="absolute -left-[41px] sm:-left-[49px] top-6 w-5 h-5 rounded-full bg-amber-300 border-4 border-slate-950 shadow-md shadow-amber-300/50 group-hover:scale-125 transition-transform"></span>
+
+            <div class="p-6 sm:p-7 rounded-3xl ijen-glass-strong group-hover:border-amber-300/50 group-hover:-translate-y-1 transition-all duration-300 print:p-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-amber-400/20 text-amber-200 border border-amber-300/30">
+                  Jenjang Pendidikan Dasar (MI)
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors print:text-slate-900">
+                MI Miftahul Ulum
+              </h3>
+              <p class="text-sm sm:text-base text-slate-200 leading-relaxed print:text-slate-700">
+                Menempuh pendidikan dasar yang membentuk fondasi karakter, kedisiplinan, etika belajar, serta kemampuan literasi dan numerasi.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. BAGIAN KONSEP PROYEK AI & JARINGAN
+         =================================================================== -->
+    <section id="proyek" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 print:py-6">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header Bagian -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 text-center max-w-2xl mx-auto mb-12 print:opacity-100 print:translate-y-0 print:mb-6">
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ijen-glass text-teal-300 mb-3">
+            Portofolio &amp; Eksplorasi
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow mb-3 print:text-slate-900">
+            Konsep Proyek AI &amp; Jaringan
+          </h2>
+          <p class="text-sm sm:text-base text-slate-200 drop-shadow print:text-slate-600">
+            Rancangan solusi teknis yang menggabungkan keahlian <strong class="text-teal-300">Teknik Komputer &amp; Jaringan</strong> dengan pengembangan <strong class="text-amber-300">Kecerdasan Buatan</strong>.
+          </p>
+        </div>
+
+        <!-- Grid Kartu Proyek -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Proyek 1 -->
+          <article class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 p-6 rounded-3xl ijen-glass-strong hover:border-teal-300/50 hover:-translate-y-1 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-teal-400/20 text-teal-200 border border-teal-300/30">
+                  AI + Networking
+                </span>
+                <span class="text-xs font-mono text-slate-400">#01</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">
+                Sistem Monitoring Jaringan Berbasis AI
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5 print:text-slate-600">
+                Konsep sistem pemantauan trafik jaringan lokal dan MikroTik berbasis Python yang mampu mendeteksi lonjakan paket atau anomali koneksi secara otomatis.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-white/10 text-[11px] font-mono">
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-teal-200">Python</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-cyan-200">MikroTik</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-amber-200">Anomaly AI</span>
+            </div>
+          </article>
+
+          <!-- Proyek 2 -->
+          <article class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-100 p-6 rounded-3xl ijen-glass-strong hover:border-amber-300/50 hover:-translate-y-1 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-amber-400/20 text-amber-200 border border-amber-300/30">
+                  Asisten Otomasi
+                </span>
+                <span class="text-xs font-mono text-slate-400">#02</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">
+                Asisten Otomasi Troubleshooting Jaringan
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5 print:text-slate-600">
+                Prototipe asisten virtual berbasis AI untuk memandu diagnosa gangguan koneksi LAN/WLAN, konfigurasi IP, dan pemecahan masalah komputer secara interaktif.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-white/10 text-[11px] font-mono">
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-amber-200">AI Prompting</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-teal-200">JavaScript</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-cyan-200">Diagnostics</span>
+            </div>
+          </article>
+
+          <!-- Proyek 3 -->
+          <article class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-200 p-6 rounded-3xl ijen-glass-strong hover:border-cyan-300/50 hover:-translate-y-1 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-cyan-400/20 text-cyan-200 border border-cyan-300/30">
+                  Smart Edge Gateway
+                </span>
+                <span class="text-xs font-mono text-slate-400">#03</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2 print:text-slate-900">
+                Smart Edge Router &amp; Sensor Lingkungan
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5 print:text-slate-600">
+                Rancangan integrasi jaringan nirkabel untuk pemantauan kualitas udara dan cuaca dataran tinggi berbasis algoritma prediksi ringan.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-white/10 text-[11px] font-mono">
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-cyan-200">IoT Network</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-teal-200">Edge AI</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-amber-200">GitHub Pages</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. BAGIAN KONTAK & AKSI CEPAT
+         =================================================================== -->
+    <section id="kontak" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 print:py-6">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header Bagian -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 text-center max-w-2xl mx-auto mb-12 print:opacity-100 print:translate-y-0 print:mb-6">
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ijen-glass text-amber-300 mb-3">
+            Mari Terhubung
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow mb-3 print:text-slate-900">
+            Kontak &amp; Informasi Komunikasi
+          </h2>
+          <p class="text-sm sm:text-base text-slate-200 drop-shadow print:text-slate-600">
+            Tertarik berdiskusi mengenai peluang karir Programmer AI, kolaborasi proyek, atau kebutuhan teknis jaringan? Silakan hubungi saya.
+          </p>
+        </div>
+
+        <!-- 3 Kartu Informasi Kontak Interaktif -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-10 print:grid-cols-3 print:gap-3 print:mb-4">
+
+          <!-- Kartu Alamat -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 p-6 rounded-3xl ijen-glass-strong hover:border-teal-300/50 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-teal-400/20 text-teal-300 flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-1 print:text-slate-900">Alamat Domisili</h3>
+              <p class="text-sm text-slate-200 leading-relaxed mb-4 print:text-slate-700">
+                Dusun Karanganyar, Desa Karangsari, Kec. Sempu, Banyuwangi
+              </p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono text-teal-300">
+              <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+              Siap Bekerja Lokal maupun Remote
+            </span>
+          </div>
+
+          <!-- Kartu Telepon / WhatsApp -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-100 p-6 rounded-3xl ijen-glass-strong hover:border-emerald-300/50 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-1 print:text-slate-900">Telepon / WhatsApp</h3>
+              <p class="text-base font-mono font-semibold text-white mb-4 print:text-slate-900">
+                085606133253
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 no-print">
+              <a href="https://wa.me/6285606133253?text=Halo%20M.%20Febri%20R.D%2C%20saya%20melihat%20portofolio%20CV%20Anda." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-xs transition-colors">
+                <span>WhatsApp</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              <a href="tel:085606133253" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-teal-400/20 hover:bg-teal-400/30 text-teal-200 font-semibold text-xs transition-colors">
+                <span>Telepon</span>
+              </a>
+              <button type="button" data-copy="085606133253" data-label="Nomor Telepon" class="copy-btn inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors">
+                <span>Salin</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Kartu Email -->
+          <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 delay-200 p-6 rounded-3xl ijen-glass-strong hover:border-amber-300/50 flex flex-col justify-between print:opacity-100 print:translate-y-0 print:p-4">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-400/20 text-amber-300 flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-1 print:text-slate-900">Email Profesional</h3>
+              <p class="text-sm sm:text-base font-mono font-semibold text-white break-all mb-4 print:text-slate-900">
+                occolues9@gmail.com
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 no-print">
+              <button type="button" data-copy="occolues9@gmail.com" data-label="Alamat Email" class="copy-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span>Salin Email</span>
+              </button>
+              <a href="mailto:occolues9@gmail.com" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors">
+                <span>Kirim Email</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formulir Kirim Pesan Cepat Interaktif -->
+        <div class="reveal-on-scroll opacity-0 translate-y-6 transition-all duration-700 max-w-3xl mx-auto p-6 sm:p-8 rounded-3xl ijen-glass-strong no-print">
+          <div class="mb-6">
+            <h3 class="text-xl font-bold text-white mb-1">Kirim Pesan Langsung</h3>
+            <p class="text-xs sm:text-sm text-slate-300">
+              Isi formulir singkat di bawah ini untuk menyiapkan pesan yang siap dikirim via WhatsApp atau Email.
+            </p>
+          </div>
+
+          <form id="contact-form" class="space-y-4" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="sender-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+                  Nama Anda *
+                </label>
+                <input type="text" id="sender-name" required placeholder="Contoh: Budi Santoso / HRD Teknologi" class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 transition-all" />
+              </div>
+              <div>
+                <label for="sender-subject" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+                  Topik / Keperluan *
+                </label>
+                <select id="sender-subject" class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/15 text-white text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 transition-all">
+                  <option value="Peluang Karir Programmer AI">Peluang Karir Programmer AI</option>
+                  <option value="Proyek & Kolaborasi Teknologi">Proyek &amp; Kolaborasi Teknologi</option>
+                  <option value="Kebutuhan Teknik Komputer & Jaringan">Kebutuhan Teknik Komputer &amp; Jaringan</option>
+                  <option value="Pertanyaan Umum">Pertanyaan Umum</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="sender-message" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+                Isi Pesan *
+              </label>
+              <textarea id="sender-message" rows="4" required placeholder="Tuliskan pesan, tawaran karir, atau detail proyek Anda di sini..." class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 transition-all resize-none"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-400 via-cyan-400 to-amber-300 hover:from-teal-300 hover:to-amber-200 text-slate-950 font-bold text-sm shadow-lg shadow-teal-500/25 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                <span>Siapkan &amp; Kirim Pesan</span>
+              </button>
+              <span class="text-xs text-slate-300">
+                Respon cepat melalui WhatsApp &amp; Email
+              </span>
+            </div>
+          </form>
+
+          <!-- Kotak Konfirmasi Interaktif Setelah Submit Formulir -->
+          <div id="form-feedback" class="hidden mt-6 p-5 rounded-2xl bg-teal-400/15 border border-teal-300/35">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-xl bg-teal-400/25 text-teal-300 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-sm font-bold text-white mb-1">Pesan Anda Siap Dikirim!</h4>
+                <p id="feedback-preview" class="text-xs text-slate-200 mb-3"></p>
+                <div class="flex flex-wrap gap-2.5">
+                  <a id="send-wa-direct" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-xs transition-colors">
+                    <span>Kirim via WhatsApp</span>
+                  </a>
+                  <a id="send-email-direct" href="#" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs transition-colors">
+                    <span>Buka Aplikasi Email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       WIDGET PEMUTAR MUSIK LATAR MELAYANG (GLASSMORPHISM CONTROLLER)
+       ===================================================================== -->
+  <aside id="music-widget" aria-label="Pemutar Musik Latar" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 no-print max-w-[calc(100vw-2rem)]">
+    <div class="rounded-2xl ijen-glass-strong p-3.5 transition-all duration-300">
+      <!-- Baris Utama Pemutar Musik -->
+      <div class="flex items-center gap-3">
+        <!-- Tombol Play / Pause -->
+        <button id="music-play-btn" type="button" aria-label="Putar atau Jeda Musik" class="w-11 h-11 rounded-xl bg-gradient-to-br from-teal-400 via-cyan-400 to-amber-300 hover:from-teal-300 hover:to-amber-200 text-slate-950 flex items-center justify-center shadow-lg shadow-teal-500/25 shrink-0 transition-transform active:scale-95">
+          <!-- Ikon Play -->
+          <svg id="music-icon-play" class="w-5 h-5 ml-0.5 block" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <!-- Ikon Pause -->
+          <svg id="music-icon-pause" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+
+        <!-- Info Trek & Animasi Equalizer Gelombang Suara -->
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <div id="widget-eq" class="flex items-end gap-0.5 h-3.5 w-4 shrink-0" aria-hidden="true">
+              <span class="eq-bar-1 w-0.5 h-1.5 bg-teal-300 rounded-full"></span>
+              <span class="eq-bar-2 w-0.5 h-3 bg-cyan-300 rounded-full"></span>
+              <span class="eq-bar-3 w-0.5 h-2 bg-amber-300 rounded-full"></span>
+              <span class="eq-bar-4 w-0.5 h-2.5 bg-teal-300 rounded-full"></span>
+            </div>
+            <p id="music-track-title" class="text-xs font-bold text-white truncate">
+              Ijen Sunrise Ambient
+            </p>
+          </div>
+          <p id="music-status-sub" class="text-[11px] font-mono text-slate-300 truncate">
+            Klik Play • 65 BPM Synth Pad
+          </p>
+        </div>
+
+        <!-- Tombol Expand / Minimize Panel Kontrol -->
+        <button id="music-expand-btn" type="button" aria-label="Buka atau Tutup Pengaturan Musik" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 transition-colors shrink-0">
+          <svg id="music-chevron" class="w-4 h-4 transform transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Panel Lanjutan: Pilihan Suasana Musik, Volume, Mute & MP3 Lokal -->
+      <div id="music-controls-panel" class="mt-3 pt-3 border-t border-white/10 space-y-3">
+        <!-- Pilihan Preset Suasana & Tombol MP3 Lokal -->
+        <div class="flex items-center gap-2">
+          <select id="music-preset-select" aria-label="Pilih Suasana Musik" class="flex-1 px-2.5 py-2 rounded-xl bg-slate-950/80 border border-white/15 text-xs font-medium text-white focus:outline-none focus:border-teal-400">
+            <option value="ambient">Ijen Sunrise Ambient (65 BPM)</option>
+            <option value="lofi">Lo-Fi Coding (65 BPM)</option>
+            <option value="focus">Deep Focus Pad (65 BPM)</option>
+            <option value="local" id="local-audio-option" disabled>Audio MP3 Lokal (Belum Dipilih)</option>
+          </select>
+
+          <button type="button" onclick="document.getElementById('custom-audio-input').click()" title="Pilih File MP3 dari Perangkat Anda" class="px-2.5 py-2 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-200 border border-amber-300/35 text-xs font-semibold shrink-0 transition-colors">
+            + MP3
+          </button>
+        </div>
+
+        <!-- Pengatur Volume & Tombol Mute -->
+        <div class="flex items-center gap-2.5">
+          <button id="music-mute-btn" type="button" aria-label="Bisukan atau Bunyikan Audio" class="p-1.5 rounded-lg text-slate-200 hover:text-teal-300 transition-colors">
+            <svg id="vol-icon-on" class="w-4 h-4 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+            <svg id="vol-icon-muted" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+            </svg>
+          </button>
+
+          <input id="music-volume-slider" type="range" min="0" max="100" value="40" aria-label="Pengatur Volume Musik" class="w-full h-1.5 bg-white/15 rounded-lg appearance-none cursor-pointer accent-teal-400" />
+          <span id="music-volume-label" class="text-[11px] font-mono text-slate-300 w-8 text-right">40%</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       FOOTER ELEGAN
+       ===================================================================== -->
+  <footer class="relative z-10 border-t border-white/10 bg-slate-950/75 backdrop-blur-xl py-8 px-4 sm:px-6 lg:px-8 pb-28 sm:pb-12 print:py-3 print:bg-white">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <p class="text-sm font-bold text-white print:text-slate-900">
+          M. Febri R.D
+        </p>
+        <p class="text-xs text-slate-300 print:text-slate-600">
+          Teknik Komputer &amp; Jaringan • Menuju Programmer AI
+        </p>
+      </div>
+
+      <p class="text-xs text-slate-300 print:text-slate-600">
+        &copy; <span id="current-year">2026</span> M. Febri R.D — Dusun Karanganyar, Desa Karangsari, Kec. Sempu, Banyuwangi.
+      </p>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT INTERAKTIF (PANORAMA KAWAH IJEN, FOTO PROFIL, WEB AUDIO)
+       ===================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Set Tahun Otomatis di Footer
+      const yearEl = document.getElementById('current-year');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      // 2. Sinkronisasi Ganti / Preview Foto Profil di Semua Slot (Hero, Navbar, Profil)
+      const profilePhotoInput = document.getElementById('profile-photo-input');
+      if (profilePhotoInput) {
+        profilePhotoInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+
+          const objectUrl = URL.createObjectURL(file);
+          const photoTargets = ['hero-profile-img', 'nav-profile-img', 'about-profile-img'];
+          photoTargets.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.onerror = null;
+              el.src = objectUrl;
+            }
+          });
+          showToast('Foto profil berhasil diterapkan ke seluruh halaman CV!', 'success');
+        });
+      }
+
+      // 3. Navigasi Mobile (Hamburger Menu)
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const hamburgerOpen = document.getElementById('hamburger-open');
+      const hamburgerClose = document.getElementById('hamburger-close');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMobileMenu(forceClose = false) {
+        if (!mobileMenu || !mobileMenuBtn) return;
+        const isCurrentlyOpen = !mobileMenu.classList.contains('hidden');
+        const shouldOpen = forceClose ? false : !isCurrentlyOpen;
+
+        if (shouldOpen) {
+          mobileMenu.classList.remove('hidden');
+          hamburgerOpen.classList.add('hidden');
+          hamburgerClose.classList.remove('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          mobileMenu.classList.add('hidden');
+          hamburgerOpen.classList.remove('hidden');
+          hamburgerClose.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(false));
+      }
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener('click', () => toggleMobileMenu(true));
+      });
+
+      // 4. Animasi Efek Mengetik (Typing Effect) pada Hero Section
+      const typingTextEl = document.getElementById('typing-text');
+      const roles = [
+        'Programmer AI',
+        'Spesialis Teknik Komputer & Jaringan',
+        'Network & AI Enthusiast'
+      ];
+      let roleIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeEffect() {
+        if (!typingTextEl) return;
+        const currentRole = roles[roleIndex];
+
+        if (isDeleting) {
+          typingTextEl.textContent = currentRole.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingTextEl.textContent = currentRole.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typingSpeed = isDeleting ? 45 : 85;
+        if (!isDeleting && charIndex === currentRole.length) {
+          typingSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          typingSpeed = 400;
+        }
+        setTimeout(typeEffect, typingSpeed);
+      }
+      setTimeout(typeEffect, 800);
+
+      // 5. Tombol Cetak / Simpan PDF CV
+      function triggerPrintCV() {
+        document.querySelectorAll('.skill-progress').forEach((bar) => {
+          bar.style.width = bar.getAttribute('data-width') || '85%';
+        });
+        window.print();
+      }
+      ['print-cv-btn', 'nav-print-btn', 'mobile-print-btn'].forEach((id) => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', triggerPrintCV);
+      });
+
+      // 6. Sistem Notifikasi Toast & Salin ke Clipboard (Kompatibel iFrame)
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        const borderColor = type === 'success'
+          ? 'border-teal-400/50 bg-slate-950/95 text-white'
+          : 'border-amber-300/50 bg-slate-950/95 text-white';
+        const dotColor = type === 'success' ? 'bg-teal-400' : 'bg-amber-300';
+
+        toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl border ${borderColor} shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-medium transform translate-y-4 opacity-0 transition-all duration-300`;
+        toast.innerHTML = `
+          <span class="w-2.5 h-2.5 rounded-full ${dotColor} shrink-0"></span>
+          <span>${message}</span>
+        `;
+        container.appendChild(toast);
+
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-4', 'opacity-0');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('translate-y-4', 'opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }, 3200);
+      }
+
+      function copyTextToClipboard(text, label) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        tempInput.setAttribute('readonly', '');
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+
+        let copied = false;
+        try {
+          copied = document.execCommand('copy');
+        } catch (err) {
+          copied = false;
+        }
+        document.body.removeChild(tempInput);
+
+        if (copied) {
+          showToast(`${label} (${text}) berhasil disalin ke clipboard!`, 'success');
+        } else {
+          showToast(`Silakan salin manual: ${text}`, 'info');
+        }
+      }
+
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const textToCopy = btn.getAttribute('data-copy');
+          const label = btn.getAttribute('data-label') || 'Teks';
+          if (textToCopy) copyTextToClipboard(textToCopy, label);
+        });
+      });
+
+      // 7. Filter Tab Kategori Keahlian Interaktif
+      const filterBtns = document.querySelectorAll('.skill-filter-btn');
+      const skillCards = document.querySelectorAll('.skill-card');
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const selectedFilter = btn.getAttribute('data-filter');
+
+          filterBtns.forEach((b) => {
+            b.classList.remove('bg-gradient-to-r', 'from-teal-400', 'to-cyan-300', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-teal-500/25');
+            b.classList.add('ijen-glass', 'text-slate-100', 'font-semibold');
+          });
+          btn.classList.remove('ijen-glass', 'text-slate-100', 'font-semibold');
+          btn.classList.add('bg-gradient-to-r', 'from-teal-400', 'to-cyan-300', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-teal-500/25');
+
+          skillCards.forEach((card) => {
+            const categories = (card.getAttribute('data-category') || '').split(' ');
+            const progressBar = card.querySelector('.skill-progress');
+
+            if (selectedFilter === 'all' || categories.includes(selectedFilter)) {
+              card.classList.remove('hidden');
+              if (progressBar) {
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                  progressBar.style.width = progressBar.getAttribute('data-width') || '80%';
+                }, 80);
+              }
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // 8. Animasi Scroll (Intersection Observer)
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-6');
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+
+            const progressBar = entry.target.querySelector('.skill-progress');
+            if (progressBar) {
+              const targetWidth = progressBar.getAttribute('data-width') || '80%';
+              setTimeout(() => {
+                progressBar.style.width = targetWidth;
+              }, 150);
+            }
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+        revealObserver.observe(el);
+      });
+
+      // 9. Formulir Kontak Interaktif
+      const contactForm = document.getElementById('contact-form');
+      const formFeedback = document.getElementById('form-feedback');
+      const feedbackPreview = document.getElementById('feedback-preview');
+      const sendWaDirect = document.getElementById('send-wa-direct');
+      const sendEmailDirect = document.getElementById('send-email-direct');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = document.getElementById('sender-name');
+          const subjectInput = document.getElementById('sender-subject');
+          const messageInput = document.getElementById('sender-message');
+
+          const name = nameInput.value.trim();
+          const subject = subjectInput.value.trim();
+          const message = messageInput.value.trim();
+
+          if (!name || !message) {
+            showToast('Mohon lengkapi Nama dan Isi Pesan Anda terlebih dahulu.', 'info');
+            if (!name) nameInput.focus();
+            else messageInput.focus();
+            return;
+          }
+
+          const composedText = `Halo M. Febri R.D,\n\nSaya ${name} ingin menghubungi Anda terkait "${subject}".\n\nPesan:\n${message}`;
+          const encodedText = encodeURIComponent(composedText);
+          const encodedSubject = encodeURIComponent(`[Portofolio CV] ${subject} - ${name}`);
+
+          if (sendWaDirect) sendWaDirect.href = `https://wa.me/6285606133253?text=${encodedText}`;
+          if (sendEmailDirect) sendEmailDirect.href = `mailto:occolues9@gmail.com?subject=${encodedSubject}&body=${encodedText}`;
+          if (feedbackPreview) {
+            feedbackPreview.textContent = `Dari: ${name} • Topik: ${subject}. Pilih saluran pengiriman di bawah ini untuk langsung terhubung dengan M. Febri R.D.`;
+          }
+          if (formFeedback) formFeedback.classList.remove('hidden');
+
+          showToast('Pesan berhasil disiapkan! Silakan pilih WhatsApp atau Email.', 'success');
+        });
+      }
+
+      // ===================================================================
+      // 10. SISTEM BACKGROUND MUSIK AMBIENT (WEB AUDIO API + MP3 LOKAL)
+      // ===================================================================
+      const musicPlayBtn = document.getElementById('music-play-btn');
+      const musicIconPlay = document.getElementById('music-icon-play');
+      const musicIconPause = document.getElementById('music-icon-pause');
+      const musicTrackTitle = document.getElementById('music-track-title');
+      const musicStatusSub = document.getElementById('music-status-sub');
+      const musicPresetSelect = document.getElementById('music-preset-select');
+      const musicVolumeSlider = document.getElementById('music-volume-slider');
+      const musicVolumeLabel = document.getElementById('music-volume-label');
+      const musicMuteBtn = document.getElementById('music-mute-btn');
+      const volIconOn = document.getElementById('vol-icon-on');
+      const volIconMuted = document.getElementById('vol-icon-muted');
+      const musicExpandBtn = document.getElementById('music-expand-btn');
+      const musicControlsPanel = document.getElementById('music-controls-panel');
+      const musicChevron = document.getElementById('music-chevron');
+      const navMusicBtn = document.getElementById('nav-music-btn');
+      const navMusicLabel = document.getElementById('nav-music-label');
+      const heroMusicTrigger = document.getElementById('hero-music-trigger');
+      const heroMusicText = document.getElementById('hero-music-text');
+      const widgetEq = document.getElementById('widget-eq');
+      const navEq = document.getElementById('nav-eq');
+      const customAudioInput = document.getElementById('custom-audio-input');
+      const localAudioPlayer = document.getElementById('local-audio-player');
+      const localAudioOption = document.getElementById('local-audio-option');
+
+      let audioCtx = null;
+      let masterGain = null;
+      let lowPassFilter = null;
+      let delayNode = null;
+      let feedbackGain = null;
+      let chordInterval = null;
+      let isPlaying = false;
+      let isMuted = false;
+      let currentVolume = 0.4;
+      let currentPreset = 'ambient';
+      let chordStep = 0;
+      let hasUserPaused = false;
+      let localAudioFileName = '';
+
+      const presets = {
+        ambient: {
+          name: 'Ijen Sunrise Ambient',
+          sub: '65 BPM • Warm Maj9 Synth Pad',
+          cutoff: 920,
+          wave: 'sine',
+          subWave: 'triangle',
+          chords: [
+            [174.61, 220.00, 261.63, 329.63, 392.00], // Fmaj9
+            [164.81, 196.00, 246.94, 293.66, 392.00], // Em7
+            [146.83, 174.61, 220.00, 261.63, 329.63], // Dm9
+            [130.81, 196.00, 246.94, 293.66, 329.63]  // Cmaj9
+          ],
+          bellNotes: [523.25, 659.25, 587.33, 493.88]
+        },
+        lofi: {
+          name: 'Lo-Fi Coding',
+          sub: '65 BPM • Warm Rhodes Chill',
+          cutoff: 780,
+          wave: 'triangle',
+          subWave: 'sine',
+          chords: [
+            [220.00, 261.63, 329.63, 392.00, 493.88], // Am9
+            [146.83, 220.00, 261.63, 329.63, 493.88], // D13
+            [196.00, 246.94, 293.66, 369.99, 440.00], // Gmaj9
+            [130.81, 164.81, 246.94, 293.66, 392.00]  // Cmaj9
+          ],
+          bellNotes: [440.00, 523.25, 493.88, 392.00]
+        },
+        focus: {
+          name: 'Deep Focus Pad',
+          sub: '65 BPM • Ethereal Crater Drone',
+          cutoff: 680,
+          wave: 'sine',
+          subWave: 'sine',
+          chords: [
+            [130.81, 196.00, 246.94, 329.63], // Cmaj7
+            [110.00, 164.81, 220.00, 261.63], // Am7
+            [174.61, 220.00, 261.63, 329.63], // Fmaj7
+            [196.00, 246.94, 293.66, 329.63]  // G6
+          ],
+          bellNotes: [392.00, 440.00, 493.88, 523.25]
+        }
+      };
+
+      function initWebAudio() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContextClass();
+
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = isMuted ? 0 : currentVolume;
+
+          lowPassFilter = audioCtx.createBiquadFilter();
+          lowPassFilter.type = 'lowpass';
+          lowPassFilter.frequency.value = presets[currentPreset].cutoff;
+          lowPassFilter.Q.value = 0.8;
+
+          delayNode = audioCtx.createDelay();
+          delayNode.delayTime.value = 0.46;
+
+          feedbackGain = audioCtx.createGain();
+          feedbackGain.gain.value = 0.34;
+
+          lowPassFilter.connect(masterGain);
+          lowPassFilter.connect(delayNode);
+          delayNode.connect(feedbackGain);
+          feedbackGain.connect(delayNode);
+          delayNode.connect(masterGain);
+
+          masterGain.connect(audioCtx.destination);
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      }
+
+      function playSynthChordStep() {
+        if (!audioCtx || !isPlaying || currentPreset === 'local') return;
+        const preset = presets[currentPreset];
+        const now = audioCtx.currentTime;
+        const barDuration = (60 / 65) * 4;
+        const chord = preset.chords[chordStep % preset.chords.length];
+
+        if (lowPassFilter) {
+          lowPassFilter.frequency.setTargetAtTime(preset.cutoff, now, 0.2);
+        }
+
+        chord.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const noteGain = audioCtx.createGain();
+
+          osc.type = idx === 0 ? preset.subWave : preset.wave;
+          osc.detune.value = (idx % 2 === 0 ? 1 : -1) * 4;
+          osc.frequency.setValueAtTime(freq, now);
+
+          const peakGain = idx === 0 ? 0.11 : 0.065;
+          noteGain.gain.setValueAtTime(0.0001, now);
+          noteGain.gain.exponentialRampToValueAtTime(peakGain, now + 0.9);
+          noteGain.gain.setTargetAtTime(0.0001, now + barDuration - 0.9, 0.45);
+
+          osc.connect(noteGain);
+          noteGain.connect(lowPassFilter);
+
+          osc.start(now);
+          osc.stop(now + barDuration + 0.6);
+        });
+
+        const bellFreq = preset.bellNotes[chordStep % preset.bellNotes.length];
+        const bellOsc = audioCtx.createOscillator();
+        const bellGain = audioCtx.createGain();
+        const bellStart = now + barDuration * 0.5;
+
+        bellOsc.type = 'sine';
+        bellOsc.frequency.setValueAtTime(bellFreq, bellStart);
+
+        bellGain.gain.setValueAtTime(0.0001, bellStart);
+        bellGain.gain.exponentialRampToValueAtTime(0.035, bellStart + 0.15);
+        bellGain.gain.exponentialRampToValueAtTime(0.0001, bellStart + 1.8);
+
+        bellOsc.connect(bellGain);
+        bellGain.connect(lowPassFilter);
+        bellOsc.start(bellStart);
+        bellOsc.stop(bellStart + 2.0);
+
+        chordStep++;
+      }
+
+      function updateMusicUI() {
+        if (isPlaying) {
+          musicIconPlay.classList.add('hidden');
+          musicIconPause.classList.remove('hidden');
+          widgetEq.classList.add('eq-playing');
+          navEq.classList.add('eq-playing');
+          if (navMusicLabel) navMusicLabel.textContent = 'Aktif';
+          if (heroMusicText) heroMusicText.textContent = 'Musik Latar Aktif';
+
+          if (currentPreset === 'local') {
+            musicTrackTitle.textContent = localAudioFileName || 'Audio MP3 Lokal';
+            musicStatusSub.textContent = 'Sedang Memutar • File Lokal';
+          } else {
+            musicTrackTitle.textContent = presets[currentPreset].name;
+            musicStatusSub.textContent = 'Sedang Memutar • ' + presets[currentPreset].sub;
+          }
+        } else {
+          musicIconPlay.classList.remove('hidden');
+          musicIconPause.classList.add('hidden');
+          widgetEq.classList.remove('eq-playing');
+          navEq.classList.remove('eq-playing');
+          if (navMusicLabel) navMusicLabel.textContent = 'Musik';
+          if (heroMusicText) heroMusicText.textContent = 'Putar Musik Ijen Sunrise';
+
+          if (currentPreset === 'local') {
+            musicTrackTitle.textContent = localAudioFileName || 'Audio MP3 Lokal';
+            musicStatusSub.textContent = 'Dijeda • File Lokal';
+          } else {
+            musicTrackTitle.textContent = presets[currentPreset].name;
+            musicStatusSub.textContent = 'Klik Play • ' + presets[currentPreset].sub;
+          }
+        }
+      }
+
+      function startMusic(silent = false) {
+        if (currentPreset === 'local' && localAudioPlayer.src) {
+          if (chordInterval) {
+            clearInterval(chordInterval);
+            chordInterval = null;
+          }
+          localAudioPlayer.volume = isMuted ? 0 : currentVolume;
+          localAudioPlayer.play().then(() => {
+            isPlaying = true;
+            updateMusicUI();
+            if (!silent) showToast(`Memutar: ${localAudioFileName}`, 'info');
+          }).catch(() => {
+            isPlaying = false;
+            updateMusicUI();
+          });
+          return;
+        }
+
+        if (!localAudioPlayer.paused) {
+          localAudioPlayer.pause();
+        }
+        initWebAudio();
+        if (masterGain && audioCtx) {
+          masterGain.gain.setTargetAtTime(isMuted ? 0 : currentVolume, audioCtx.currentTime, 0.15);
+        }
+
+        isPlaying = true;
+        updateMusicUI();
+
+        if (!chordInterval) {
+          playSynthChordStep();
+          const barMs = (60 / 65) * 4 * 1000;
+          chordInterval = setInterval(playSynthChordStep, barMs);
+        }
+
+        if (!silent) {
+          showToast(`Musik latar "${presets[currentPreset].name}" diputar`, 'info');
+        }
+      }
+
+      function pauseMusic(silent = false) {
+        isPlaying = false;
+        hasUserPaused = true;
+
+        if (chordInterval) {
+          clearInterval(chordInterval);
+          chordInterval = null;
+        }
+        if (masterGain && audioCtx) {
+          masterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.2);
+        }
+        if (!localAudioPlayer.paused) {
+          localAudioPlayer.pause();
+        }
+
+        updateMusicUI();
+        if (!silent) {
+          showToast('Musik latar dijeda', 'info');
+        }
+      }
+
+      function toggleMusic() {
+        if (isPlaying) {
+          pauseMusic(false);
+        } else {
+          hasUserPaused = false;
+          startMusic(false);
+        }
+      }
+
+      if (musicPlayBtn) musicPlayBtn.addEventListener('click', toggleMusic);
+      if (navMusicBtn) navMusicBtn.addEventListener('click', toggleMusic);
+      if (heroMusicTrigger) {
+        heroMusicTrigger.addEventListener('click', () => {
+          if (!isPlaying) {
+            hasUserPaused = false;
+            startMusic(false);
+          } else {
+            toggleMusic();
+          }
+        });
+      }
+
+      if (musicPresetSelect) {
+        musicPresetSelect.addEventListener('change', (e) => {
+          currentPreset = e.target.value;
+          chordStep = 0;
+
+          if (currentPreset === 'local') {
+            if (chordInterval) {
+              clearInterval(chordInterval);
+              chordInterval = null;
+            }
+            if (isPlaying) startMusic(true);
+            else updateMusicUI();
+          } else {
+            if (!localAudioPlayer.paused) localAudioPlayer.pause();
+            if (isPlaying) {
+              if (chordInterval) {
+                clearInterval(chordInterval);
+                chordInterval = null;
+              }
+              startMusic(true);
+            } else {
+              updateMusicUI();
+            }
+          }
+        });
+      }
+
+      if (customAudioInput) {
+        customAudioInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+
+          localAudioFileName = file.name.replace(/\.[^/.]+$/, '');
+          localAudioPlayer.src = URL.createObjectURL(file);
+          if (localAudioOption) {
+            localAudioOption.disabled = false;
+            localAudioOption.textContent = `MP3: ${localAudioFileName}`;
+          }
+          currentPreset = 'local';
+          if (musicPresetSelect) musicPresetSelect.value = 'local';
+          hasUserPaused = false;
+          startMusic(false);
+        });
+      }
+
+      if (musicVolumeSlider) {
+        musicVolumeSlider.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value, 10);
+          currentVolume = val / 100;
+          if (musicVolumeLabel) musicVolumeLabel.textContent = `${val}%`;
+
+          isMuted = val === 0;
+          updateMuteUI();
+
+          if (masterGain && audioCtx) {
+            masterGain.gain.setTargetAtTime(isMuted ? 0 : currentVolume, audioCtx.currentTime, 0.08);
+          }
+          localAudioPlayer.volume = isMuted ? 0 : currentVolume;
+        });
+      }
+
+      function updateMuteUI() {
+        if (isMuted) {
+          volIconOn.classList.add('hidden');
+          volIconMuted.classList.remove('hidden');
+        } else {
+          volIconOn.classList.remove('hidden');
+          volIconMuted.classList.add('hidden');
+        }
+      }
+
+      if (musicMuteBtn) {
+        musicMuteBtn.addEventListener('click', () => {
+          isMuted = !isMuted;
+          updateMuteUI();
+          if (masterGain && audioCtx) {
+            masterGain.gain.setTargetAtTime(isMuted ? 0 : currentVolume, audioCtx.currentTime, 0.08);
+          }
+          localAudioPlayer.volume = isMuted ? 0 : currentVolume;
+        });
+      }
+
+      if (musicExpandBtn && musicControlsPanel) {
+        musicExpandBtn.addEventListener('click', () => {
+          const isHidden = musicControlsPanel.classList.contains('hidden');
+          if (isHidden) {
+            musicControlsPanel.classList.remove('hidden');
+            musicChevron.classList.add('rotate-180');
+          } else {
+            musicControlsPanel.classList.add('hidden');
+            musicChevron.classList.remove('rotate-180');
+          }
+        });
+      }
+
+      function handleFirstInteraction() {
+        if (!isPlaying && !hasUserPaused) {
+          startMusic(true);
+        }
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('keydown', handleFirstInteraction);
+      }
+      document.addEventListener('click', handleFirstInteraction, { once: true });
+      document.addEventListener('keydown', handleFirstInteraction, { once: true });
+
+      // ===================================================================
+      // 11. PANORAMA INTERAKTIF KAWAH IJEN BANYUWANGI (CANVAS ENGINE)
+      //     Mendukung Mode "Sunrise Kawah Ijen" & "Blue Fire Malam" + Parallax
+      // ===================================================================
+      const ijenCanvas = document.getElementById('kawah-ijen-canvas');
+      const ijenModeToggle = document.getElementById('ijen-mode-toggle');
+      const ijenModeLabel = document.getElementById('ijen-mode-label');
+      const ijenModeLabelMobile = document.getElementById('ijen-mode-label-mobile');
+      const iconIjenSunrise = document.getElementById('icon-ijen-sunrise');
+      const iconIjenBluefire = document.getElementById('icon-ijen-bluefire');
+
+      // 0 = Sunrise Kawah Ijen, 1 = Blue Fire Malam
+      let targetAtmosphere = 0;
+      let currentAtmosphere = 0;
+      let scrollParallaxY = 0;
+
+      window.addEventListener('scroll', () => {
+        scrollParallaxY = window.scrollY || 0;
+      }, { passive: true });
+
+      if (ijenModeToggle) {
+        ijenModeToggle.addEventListener('click', () => {
+          targetAtmosphere = targetAtmosphere === 0 ? 1 : 0;
+          if (targetAtmosphere === 1) {
+            iconIjenSunrise.classList.add('hidden');
+            iconIjenBluefire.classList.remove('hidden');
+            if (ijenModeLabel) ijenModeLabel.textContent = 'Blue Fire Malam';
+            if (ijenModeLabelMobile) ijenModeLabelMobile.textContent = 'Blue Fire';
+            showToast('Suasana beralih ke Blue Fire Malam Kawah Ijen', 'info');
+          } else {
+            iconIjenBluefire.classList.add('hidden');
+            iconIjenSunrise.classList.remove('hidden');
+            if (ijenModeLabel) ijenModeLabel.textContent = 'Sunrise Kawah Ijen';
+            if (ijenModeLabelMobile) ijenModeLabelMobile.textContent = 'Sunrise';
+            showToast('Suasana beralih ke Sunrise & Danau Turquoise Kawah Ijen', 'success');
+          }
+        });
+      }
+
+      if (ijenCanvas) {
+        const ctx = ijenCanvas.getContext('2d');
+        let width = 0;
+        let height = 0;
+        let stars = [];
+        let mistClouds = [];
+        let waterSparkles = [];
+        let blueFireParticles = [];
+
+        function lerp(a, b, t) {
+          return a + (b - a) * t;
+        }
+
+        function lerpColor(rgbA, rgbB, t) {
+          const r = Math.round(lerp(rgbA[0], rgbB[0], t));
+          const g = Math.round(lerp(rgbA[1], rgbB[1], t));
+          const b = Math.round(lerp(rgbA[2], rgbB[2], t));
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function lerpRGBA(rgbaA, rgbaB, t) {
+          const r = Math.round(lerp(rgbaA[0], rgbaB[0], t));
+          const g = Math.round(lerp(rgbaA[1], rgbaB[1], t));
+          const b = Math.round(lerp(rgbaA[2], rgbaB[2], t));
+          const a = lerp(rgbaA[3], rgbaB[3], t).toFixed(3);
+          return `rgba(${r}, ${g}, ${b}, ${a})`;
+        }
+
+        function initIjenScene() {
+          width = ijenCanvas.width = window.innerWidth;
+          height = ijenCanvas.height = window.innerHeight;
+
+          // Bintang-bintang langit malam Banyuwangi
+          stars = [];
+          const starCount = Math.min(140, Math.floor((width * height) / 11000));
+          for (let i = 0; i < starCount; i++) {
+            stars.push({
+              x: Math.random() * width,
+              y: Math.random() * height * 0.45,
+              r: Math.random() * 1.5 + 0.4,
+              phase: Math.random() * Math.PI * 2,
+              speed: Math.random() * 1.8 + 0.6
+            });
+          }
+
+          // Awan kabut pagi & uap belerang lembut
+          mistClouds = [];
+          for (let i = 0; i < 9; i++) {
+            mistClouds.push({
+              x: Math.random() * width * 1.2 - width * 0.1,
+              y: height * (0.44 + Math.random() * 0.24),
+              rx: width * (0.14 + Math.random() * 0.16),
+              ry: height * (0.025 + Math.random() * 0.03),
+              vx: (Math.random() * 0.18 + 0.06) * (i % 2 === 0 ? 1 : -1),
+              alpha: 0.08 + Math.random() * 0.10
+            });
+          }
+
+          // Kilau air danau Kawah Ijen
+          waterSparkles = [];
+          for (let i = 0; i < 65; i++) {
+            waterSparkles.push({
+              nx: 0.24 + Math.random() * 0.46,
+              ny: 0.59 + Math.random() * 0.13,
+              len: 8 + Math.random() * 26,
+              phase: Math.random() * Math.PI * 2,
+              speed: 1.5 + Math.random() * 2.5
+            });
+          }
+
+          // Partikel Api Biru (Blue Fire) di lereng belerang kanan kawah
+          blueFireParticles = [];
+          for (let i = 0; i < 48; i++) {
+            blueFireParticles.push({
+              nx: 0.67 + Math.random() * 0.11,
+              ny: 0.56 + Math.random() * 0.06,
+              size: 4 + Math.random() * 12,
+              vy: 0.00025 + Math.random() * 0.00045,
+              phase: Math.random() * Math.PI * 2
+            });
+          }
+        }
+
+        function renderIjenFrame(timestamp) {
+          const time = timestamp * 0.001;
+          currentAtmosphere = lerp(currentAtmosphere, targetAtmosphere, 0.035);
+          const m = currentAtmosphere; // 0 = Sunrise, 1 = Blue Fire Malam
+
+          // Faktor parallax lembut saat di-scroll
+          const pSky = Math.min(40, scrollParallaxY * 0.03);
+          const pFarPeak = Math.min(70, scrollParallaxY * 0.06);
+          const pCaldera = Math.min(110, scrollParallaxY * 0.09);
+          const pForeground = Math.min(140, scrollParallaxY * 0.12);
+
+          ctx.clearRect(0, 0, width, height);
+
+          // ---------------------------------------------------------------
+          // 1. LANGIT KAWAH IJEN (SUNRISE EMAS vs MALAM BERBINTANG)
+          // ---------------------------------------------------------------
+          const skyGrad = ctx.createLinearGradient(0, 0, 0, height * 0.58);
+          skyGrad.addColorStop(0, lerpColor([14, 38, 66], [2, 6, 20], m));
+          skyGrad.addColorStop(0.38, lerpColor([38, 92, 122], [7, 18, 44], m));
+          skyGrad.addColorStop(0.72, lerpColor([217, 134, 84], [12, 34, 72], m));
+          skyGrad.addColorStop(1, lerpColor([252, 205, 118], [16, 48, 92], m));
+          ctx.fillStyle = skyGrad;
+          ctx.fillRect(0, 0, width, height);
+
+          // Bintang-bintang (Muncul saat Blue Fire Malam)
+          if (m > 0.02) {
+            for (let i = 0; i < stars.length; i++) {
+              const s = stars[i];
+              const twinkle = 0.45 + 0.55 * Math.sin(time * s.speed + s.phase);
+              ctx.beginPath();
+              ctx.arc(s.x, s.y - pSky * 0.5, s.r, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(224, 242, 254, ${(twinkle * m * 0.85).toFixed(3)})`;
+              ctx.fill();
+            }
+          }
+
+          // Matahari Terbit & Sinar Keemasan (Muncul saat Sunrise Kawah Ijen)
+          const sunX = width * 0.72;
+          const sunY = height * 0.35 - pSky;
+          if (m < 0.98) {
+            const sunAlpha = 1 - m;
+            const sunAura = ctx.createRadialGradient(sunX, sunY, 8, sunX, sunY, width * 0.42);
+            sunAura.addColorStop(0, `rgba(254, 249, 195, ${(0.85 * sunAlpha).toFixed(3)})`);
+            sunAura.addColorStop(0.18, `rgba(253, 224, 71, ${(0.42 * sunAlpha).toFixed(3)})`);
+            sunAura.addColorStop(0.45, `rgba(251, 146, 60, ${(0.18 * sunAlpha).toFixed(3)})`);
+            sunAura.addColorStop(1, 'rgba(251, 146, 60, 0)');
+            ctx.fillStyle = sunAura;
+            ctx.fillRect(0, 0, width, height * 0.75);
+
+            // Berkas Sinar Matahari Pagi (Crepuscular Sunbeams)
+            ctx.save();
+            ctx.translate(sunX, sunY);
+            const rayCount = 7;
+            for (let r = 0; r < rayCount; r++) {
+              const baseAngle = Math.PI * 0.65 + r * 0.17 + Math.sin(time * 0.25 + r) * 0.025;
+              ctx.beginPath();
+              ctx.moveTo(0, 0);
+              ctx.lineTo(Math.cos(baseAngle - 0.04) * width * 0.85, Math.sin(baseAngle - 0.04) * width * 0.85);
+              ctx.lineTo(Math.cos(baseAngle + 0.04) * width * 0.85, Math.sin(baseAngle + 0.04) * width * 0.85);
+              ctx.closePath();
+              ctx.fillStyle = `rgba(254, 240, 138, ${(0.055 * sunAlpha).toFixed(3)})`;
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+
+          // Cahaya Bulan Sabit Lembut (Saat Blue Fire Malam)
+          if (m > 0.05) {
+            const moonX = width * 0.22;
+            const moonY = height * 0.18 - pSky;
+            const moonGlow = ctx.createRadialGradient(moonX, moonY, 4, moonX, moonY, 130);
+            moonGlow.addColorStop(0, `rgba(186, 230, 253, ${(0.35 * m).toFixed(3)})`);
+            moonGlow.addColorStop(1, 'rgba(186, 230, 253, 0)');
+            ctx.fillStyle = moonGlow;
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, 130, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // ---------------------------------------------------------------
+          // 2. SILUET PEGUNUNGAN DATARAN TINGGI IJEN-MERAPI DI KEJAUHAN
+          // ---------------------------------------------------------------
+          ctx.beginPath();
+          ctx.moveTo(0, height * 0.55);
+          ctx.lineTo(0, height * 0.37 - pFarPeak);
+          ctx.lineTo(width * 0.14, height * 0.31 - pFarPeak);
+          ctx.lineTo(width * 0.28, height * 0.36 - pFarPeak);
+          ctx.lineTo(width * 0.45, height * 0.29 - pFarPeak);
+          ctx.lineTo(width * 0.62, height * 0.35 - pFarPeak);
+          ctx.lineTo(width * 0.80, height * 0.28 - pFarPeak);
+          ctx.lineTo(width, height * 0.34 - pFarPeak);
+          ctx.lineTo(width, height * 0.55);
+          ctx.closePath();
+          ctx.fillStyle = lerpColor([66, 98, 124], [10, 24, 52], m);
+          ctx.fill();
+
+          // ---------------------------------------------------------------
+          // 3. DINDING KALDERA VULKANIK BELAKANG (TEBING KIRI & KANAN)
+          // ---------------------------------------------------------------
+          const calderaBackGrad = ctx.createLinearGradient(0, height * 0.30 - pCaldera, 0, height * 0.66 - pCaldera);
+          calderaBackGrad.addColorStop(0, lerpColor([92, 108, 122], [15, 26, 48], m));
+          calderaBackGrad.addColorStop(0.55, lerpColor([62, 75, 88], [11, 20, 38], m));
+          calderaBackGrad.addColorStop(1, lerpColor([38, 52, 64], [7, 14, 28], m));
+
+          ctx.beginPath();
+          ctx.moveTo(0, height * 0.34 - pCaldera);
+          ctx.lineTo(width * 0.12, height * 0.39 - pCaldera);
+          ctx.lineTo(width * 0.24, height * 0.45 - pCaldera);
+          ctx.lineTo(width * 0.37, height * 0.52 - pCaldera);
+          ctx.lineTo(width * 0.52, height * 0.54 - pCaldera);
+          ctx.lineTo(width * 0.68, height * 0.48 - pCaldera);
+          ctx.lineTo(width * 0.84, height * 0.38 - pCaldera);
+          ctx.lineTo(width, height * 0.32 - pCaldera);
+          ctx.lineTo(width, height * 0.72 - pCaldera);
+          ctx.lineTo(0, height * 0.72 - pCaldera);
+          ctx.closePath();
+          ctx.fillStyle = calderaBackGrad;
+          ctx.fill();
+
+          // Guratan Tekstur Tebing Vulkanik & Endapan Belerang Kuning Kawah Ijen
+          ctx.save();
+          // Faset Tebing Kiri
+          ctx.beginPath();
+          ctx.moveTo(0, height * 0.34 - pCaldera);
+          ctx.lineTo(width * 0.18, height * 0.43 - pCaldera);
+          ctx.lineTo(width * 0.29, height * 0.58 - pCaldera);
+          ctx.lineTo(0, height * 0.63 - pCaldera);
+          ctx.closePath();
+          ctx.fillStyle = lerpRGBA([34, 46, 58, 0.65], [6, 12, 24, 0.75], m);
+          ctx.fill();
+
+          // Faset Tebing Belerang Kanan (Terkena Sinar Sunrise atau Cahaya Blue Fire)
+          ctx.beginPath();
+          ctx.moveTo(width * 0.56, height * 0.54 - pCaldera);
+          ctx.lineTo(width * 0.78, height * 0.41 - pCaldera);
+          ctx.lineTo(width, height * 0.32 - pCaldera);
+          ctx.lineTo(width, height * 0.66 - pCaldera);
+          ctx.lineTo(width * 0.64, height * 0.62 - pCaldera);
+          ctx.closePath();
+          ctx.fillStyle = lerpRGBA([148, 124, 72, 0.42], [14, 42, 88, 0.48], m);
+          ctx.fill();
+
+          // Endapan Belerang Kuning-Emas di Lereng Kanan Kawah
+          ctx.beginPath();
+          ctx.moveTo(width * 0.64, height * 0.58 - pCaldera);
+          ctx.lineTo(width * 0.75, height * 0.51 - pCaldera);
+          ctx.lineTo(width * 0.81, height * 0.59 - pCaldera);
+          ctx.lineTo(width * 0.68, height * 0.62 - pCaldera);
+          ctx.closePath();
+          ctx.fillStyle = lerpRGBA([234, 179, 8, 0.34], [56, 189, 248, 0.25], m);
+          ctx.fill();
+          ctx.restore();
+
+          // ---------------------------------------------------------------
+          // 4. DANAU ASAM TURQUOISE-EMERALD KAWAH IJEN (IKON UTAMA)
+          // ---------------------------------------------------------------
+          const lakeY = height * 0.64 - pCaldera;
+          const lakeRx = width * 0.35;
+          const lakeRy = height * 0.085;
+          const lakeCx = width * 0.47;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(lakeCx - lakeRx, lakeY);
+          ctx.bezierCurveTo(
+            lakeCx - lakeRx * 0.85, lakeY - lakeRy * 1.15,
+            lakeCx + lakeRx * 0.65, lakeY - lakeRy * 1.05,
+            lakeCx + lakeRx * 0.92, lakeY - lakeRy * 0.15
+          );
+          ctx.bezierCurveTo(
+            lakeCx + lakeRx * 1.02, lakeY + lakeRy * 0.95,
+            lakeCx - lakeRx * 0.65, lakeY + lakeRy * 1.15,
+            lakeCx - lakeRx, lakeY
+          );
+          ctx.closePath();
+
+          // Gradasi Air Danau Kawah Ijen: Turquoise-Emerald Bercahaya (Sunrise) vs Biru Gelap Refleksi Api Biru (Malam)
+          const lakeGrad = ctx.createRadialGradient(
+            lakeCx + width * 0.04, lakeY, lakeRx * 0.05,
+            lakeCx, lakeY, lakeRx * 1.05
+          );
+          lakeGrad.addColorStop(0, lerpColor([103, 232, 249], [14, 116, 184], m));   // Pusat cyan-turquoise / biru elektrik
+          lakeGrad.addColorStop(0.45, lerpColor([20, 184, 166], [8, 68, 118], m));   // Emerald-teal / biru dalam
+          lakeGrad.addColorStop(0.82, lerpColor([13, 148, 136], [5, 38, 74], m));    // Teal pekat
+          lakeGrad.addColorStop(1, lerpColor([15, 76, 82], [4, 20, 42], m));         // Tepian berbatu kaldera
+          ctx.fillStyle = lakeGrad;
+          ctx.fill();
+
+          // Klip di dalam area danau untuk riak & kilau air realistis
+          ctx.clip();
+
+          // Pantulan Sinar Matahari Pagi / Cahaya Blue Fire pada Permukaan Air Danau
+          const reflectX = lerp(width * 0.62, width * 0.70, m);
+          const waterReflect = ctx.createRadialGradient(reflectX, lakeY - lakeRy * 0.2, 6, reflectX, lakeY, lakeRx * 0.55);
+          waterReflect.addColorStop(0, lerpRGBA([254, 240, 138, 0.55], [56, 189, 248, 0.68], m));
+          waterReflect.addColorStop(0.5, lerpRGBA([45, 212, 191, 0.22], [37, 99, 235, 0.28], m));
+          waterReflect.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = waterReflect;
+          ctx.fillRect(lakeCx - lakeRx, lakeY - lakeRy * 1.2, lakeRx * 2.1, lakeRy * 2.4);
+
+          // Kilau & Riak Air Halus Bergerak
+          for (let i = 0; i < waterSparkles.length; i++) {
+            const sp = waterSparkles[i];
+            const sx = width * sp.nx + Math.sin(time * 0.6 + sp.phase) * 10;
+            const sy = height * sp.ny - pCaldera;
+            const shimmer = 0.25 + 0.75 * Math.max(0, Math.sin(time * sp.speed + sp.phase));
+
+            ctx.beginPath();
+            ctx.moveTo(sx - sp.len * 0.5, sy);
+            ctx.lineTo(sx + sp.len * 0.5, sy);
+            ctx.strokeStyle = lerpRGBA(
+              [224, 242, 254, shimmer * 0.45],
+              [125, 211, 252, shimmer * 0.65],
+              m
+            );
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+          }
+          ctx.restore();
+
+          // ---------------------------------------------------------------
+          // 5. FENOMENA BLUE FIRE KAWAH IJEN (MENYALA SAAT MODE MALAM)
+          // ---------------------------------------------------------------
+          if (m > 0.04) {
+            // Aura cahaya biru elektrik di dinding tambang belerang kanan
+            const bfCenterX = width * 0.72;
+            const bfCenterY = height * 0.58 - pCaldera;
+            const bfAura = ctx.createRadialGradient(bfCenterX, bfCenterY, 5, bfCenterX, bfCenterY, width * 0.18);
+            bfAura.addColorStop(0, `rgba(56, 189, 248, ${(0.55 * m).toFixed(3)})`);
+            bfAura.addColorStop(0.45, `rgba(37, 99, 235, ${(0.28 * m).toFixed(3)})`);
+            bfAura.addColorStop(1, 'rgba(37, 99, 235, 0)');
+            ctx.fillStyle = bfAura;
+            ctx.beginPath();
+            ctx.arc(bfCenterX, bfCenterY, width * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Lidah Api Biru menari-nari
+            for (let i = 0; i < blueFireParticles.length; i++) {
+              const bf = blueFireParticles[i];
+              bf.ny -= bf.vy;
+              if (bf.ny < 0.51) {
+                bf.ny = 0.57 + Math.random() * 0.04;
+              }
+              const fx = width * bf.nx + Math.sin(time * 4.2 + bf.phase) * 7;
+              const fy = height * bf.ny - pCaldera;
+              const flicker = 0.55 + 0.45 * Math.sin(time * 7 + bf.phase);
+
+              const flameGrad = ctx.createRadialGradient(fx, fy, 1, fx, fy - bf.size * 0.5, bf.size * 1.6);
+              flameGrad.addColorStop(0, `rgba(224, 242, 254, ${(0.9 * flicker * m).toFixed(3)})`);
+              flameGrad.addColorStop(0.4, `rgba(14, 165, 233, ${(0.65 * flicker * m).toFixed(3)})`);
+              flameGrad.addColorStop(1, 'rgba(29, 78, 216, 0)');
+
+              ctx.fillStyle = flameGrad;
+              ctx.beginPath();
+              ctx.arc(fx, fy, bf.size * 1.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+
+          // ---------------------------------------------------------------
+          // 6. KABUT PAGI & UAP BELERANG LEMBUT MELINTASI KALDERA
+          // ---------------------------------------------------------------
+          for (let i = 0; i < mistClouds.length; i++) {
+            const mc = mistClouds[i];
+            mc.x += mc.vx;
+            if (mc.x - mc.rx > width) mc.x = -mc.rx;
+            if (mc.x + mc.rx < 0) mc.x = width + mc.rx;
+
+            const my = mc.y - pCaldera * 1.1;
+            const mistGrad = ctx.createRadialGradient(mc.x, my, 4, mc.x, my, mc.rx);
+            mistGrad.addColorStop(0, lerpRGBA(
+              [254, 243, 199, mc.alpha],
+              [147, 197, 253, mc.alpha * 0.75],
+              m
+            ));
+            mistGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.save();
+            ctx.translate(mc.x, my);
+            ctx.scale(1, mc.ry / mc.rx);
+            ctx.fillStyle = mistGrad;
+            ctx.beginPath();
+            ctx.arc(0, 0, mc.rx, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          }
+
+          // ---------------------------------------------------------------
+          // 7. BIBIR TEBING KALDERA DEPAN (FRAMING VIEWPOINT KAWAH IJEN)
+          // ---------------------------------------------------------------
+          const fgGrad = ctx.createLinearGradient(0, height * 0.66 - pForeground, 0, height);
+          fgGrad.addColorStop(0, lerpColor([28, 38, 48], [6, 11, 22], m));
+          fgGrad.addColorStop(1, lerpColor([9, 15, 24], [2, 6, 15], m));
+
+          ctx.beginPath();
+          ctx.moveTo(0, height);
+          ctx.lineTo(0, height * 0.66 - pForeground);
+          ctx.lineTo(width * 0.16, height * 0.71 - pForeground);
+          ctx.lineTo(width * 0.34, height * 0.74 - pForeground);
+          ctx.lineTo(width * 0.55, height * 0.72 - pForeground);
+          ctx.lineTo(width * 0.76, height * 0.67 - pForeground);
+          ctx.lineTo(width, height * 0.63 - pForeground);
+          ctx.lineTo(width, height);
+          ctx.closePath();
+          ctx.fillStyle = fgGrad;
+          ctx.fill();
+
+          requestAnimationFrame(renderIjenFrame);
+        }
+
+        window.addEventListener('resize', initIjenScene);
+        initIjenScene();
+        requestAnimationFrame(renderIjenFrame);
+      }
+    });
+  </script>
+</body>
+</html>
